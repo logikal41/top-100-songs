@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Button, Card, Row, Col } from 'react-materialize';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
