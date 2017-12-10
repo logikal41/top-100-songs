@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import SongForm from './components/SongForm';
 import SongList from './components/SongList';
@@ -13,8 +12,8 @@ class App extends Component {
       .then( songs => this.setState({ songs }) )
   }
 
-  addSong = (name) => { // add in the artist later
-    let newSong = { name };
+  addSong = (name, artist) => { 
+    let newSong = { name, artist };
     fetch('/api/songs', {
       method: 'POST',
       headers: {
@@ -53,7 +52,10 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <SongForm addSong={this.addSong}/>
+        <h2> Top 100 Songs </h2>
+        <div className="container hero">
+          <SongForm addSong={this.addSong}/>
+        </div>
         <SongList
           songs={this.state.songs}
           updateSong={this.updateSong}

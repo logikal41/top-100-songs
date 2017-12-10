@@ -1,6 +1,6 @@
 import React from 'react';
 
-class SongForm extends React.Component {
+class UpdateForm extends React.Component {
     state = { name: '', artist: ''}
 
     handleChangeName = e => {

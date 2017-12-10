@@ -26,3 +26,41 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.border {
+  border: 2px solid black;
+}
+
+.hero {
+  background: rgb(145, 143, 143);
+  width: 100%;
+  padding-top: 15px;
+  border-radius: 30px;
+}
+
+input {
+  color: white;
+}
+
+body {
+  background: #293f50;
+  color: rgb(184, 184, 184);
+  font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h2 {
+  margin: 15px auto;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+.btn {
+  margin: 10px;
+  text-align: center;
+}
