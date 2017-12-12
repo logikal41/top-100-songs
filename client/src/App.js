@@ -4,7 +4,7 @@ import SongForm from './components/SongForm';
 import SongList from './components/SongList';
 
 class App extends Component {
-  state = { songs: [] }
+  state = { songs: [], formVisibility: false, listVisibility: true, name: '', artist: '' }
 
   componentDidMount() {
     fetch('/api/songs')
@@ -28,7 +28,21 @@ class App extends Component {
       })
   }
 
-  updateSong = (id) => {
+  toggleList = () => {
+    this.setState({listVisibility: !this.state.listVisibility})
+  }
+
+  toggleForm = () => {
+    this.setState({formVisibility: !this.state.formVisibility})
+  }
+
+  initUpdate = (id, name, artist) => {
+    this.setState({name, artist})
+    // this.toggleList()
+    this.toggleForm()
+  }
+  
+  updateSong = (id, name, artist) => {
     fetch(`/api/songs/${id}`, { method: 'PUT'})
       .then( res => res.json() )
       .then( song => {
@@ -53,13 +67,32 @@ class App extends Component {
     return (
       <div className="container">
         <h2> Top 100 Songs </h2>
-        <div className="container hero">
-          <SongForm addSong={this.addSong}/>
+        <div className="container hero border">
+          <SongForm addSong={this.addSong} 
+          formVisibility={this.state.formVisibility} 
+          toggleForm={this.toggleForm}
+          toggleList={this.toggleList}
+          artist={this.state.artist}
+          name={this.state.name} />
         </div>
-        <SongList
+        <div className="row">
+          <div className="col m1">
+            Song ID
+          </div>
+          <div className="col m4">
+            Song Name
+          </div>
+          <div className="col m4">
+            Artist
+          </div>
+        </div>
+          <SongList
           songs={this.state.songs}
           updateSong={this.updateSong}
-          deleteSong={this.deleteSong}/>
+          deleteSong={this.deleteSong}
+          listVisibility={this.state.listVisibility}
+          toggleList={this.toggleList}
+          />
         </div>
       );
     }

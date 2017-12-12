@@ -35,7 +35,10 @@
   background: rgb(145, 143, 143);
   width: 100%;
   padding-top: 15px;
+  padding-bottom: 15px;
   border-radius: 30px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 input {
@@ -62,5 +65,8 @@ h3 {
 
 .btn {
   margin: 10px;
+}
+
+.row {
   text-align: center;
 }
