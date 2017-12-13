@@ -1,37 +1,34 @@
 import React from 'react';
 
-const UpdateForm = ({id, name, artist, handleSubmit, handleChangeArtist, handleChangeName, initUpdate, cancelUpdate, clearState}) => (
-   
-    <form className="row" onSubmit={initUpdate}>
-     <h2> This is an UPDATE </h2>
+const AddForm = ({name, artist, handleSubmit, handleChangeName, handleChangeArtist, goBack}) => (
+
+    <form className="row" onSubmit={handleSubmit}>
         <input 
             className = "col s8 offset-s2"
+            placeholder="Artist Name"
             required
-            placeholder={artist}
+            //value={artist}
             onChange={handleChangeArtist}
         />
         <input
             className = "col s8 offset-s2"
+            placeholder="Song Name"
             required
-            placeholder={name}
+            //value={name}
             onChange={handleChangeName}
         />
         <input 
         className="col s2 offset-s5 waves-light btn" 
         type="submit" 
-        value="update song"
+        value="add song"
         />
         <input 
         className="col s2 offset-s5 waves-light btn" 
         type="button" 
         value="Go Back" 
-        onClick= {() => { 
-            cancelUpdate();
-            clearState();
-        }}
+        onClick= {goBack}
         />
     </form> 
-
 )
 
-export default UpdateForm;
+export default AddForm;

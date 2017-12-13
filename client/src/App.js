@@ -38,13 +38,22 @@ class App extends Component {
 
   initUpdate = (id, name, artist) => {
     this.setState({name, artist})
-    // this.toggleList()
+    this.toggleList()
+    this.toggleForm()
+  }
+
+  cancelUpdate = () => {
+    this.setState({name:'', artist: ''})
+    this.toggleList()
     this.toggleForm()
   }
   
   updateSong = (id, name, artist) => {
-    fetch(`/api/songs/${id}`, { method: 'PUT'})
-      .then( res => res.json() )
+    let song = { name, artist }
+    fetch(`/api/songs/${id}`, { 
+      method: 'PUT',
+      body: JSON.stringify(song)
+    }).then( res => res.json() )
       .then( song => {
         let songs = this.state.songs.map( t => {
           if( t.id === id)
@@ -69,11 +78,14 @@ class App extends Component {
         <h2> Top 100 Songs </h2>
         <div className="container hero border">
           <SongForm addSong={this.addSong} 
-          formVisibility={this.state.formVisibility} 
+          formVisibility={this.state.formVisibility}
+          listVisibility={this.state.listVisibility} 
           toggleForm={this.toggleForm}
           toggleList={this.toggleList}
           artist={this.state.artist}
-          name={this.state.name} />
+          name={this.state.name}
+          cancelUpdate={this.cancelUpdate}
+           />
         </div>
         <div className="row">
           <div className="col m1">
@@ -89,6 +101,7 @@ class App extends Component {
           <SongList
           songs={this.state.songs}
           updateSong={this.updateSong}
+          initUpdate={this.initUpdate}
           deleteSong={this.deleteSong}
           listVisibility={this.state.listVisibility}
           toggleList={this.toggleList}

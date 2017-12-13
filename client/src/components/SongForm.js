@@ -1,4 +1,6 @@
 import React from 'react';
+import AddForm from './AddForm';
+import UpdateForm from './UpdateForm';
 
 class SongForm extends React.Component {
     state = { name: '', artist: ''}
@@ -11,6 +13,15 @@ class SongForm extends React.Component {
         this.setState({ artist: e.target.value });
     }
 
+    goBack = () => {
+        this.props.toggleForm()
+        this.setState({ name: '', artist: '' })
+    }
+
+    clearState = () => {
+        this.setState({ name: '', artist: '' })
+    } 
+
     handleSubmit = e => {
         e.preventDefault();
         this.props.addSong(this.state.name, this.state.artist)
@@ -19,45 +30,37 @@ class SongForm extends React.Component {
     }
 
     render() {
-        if (this.props.formVisibility) {
+        if (this.props.formVisibility && this.props.listVisibility) {
             return(
-                <form className="row" onSubmit={this.handleSubmit}>
-                <input 
-                    className = "col s8 offset-s2"
-                    placeholder={(this.props.artist === "") ? "Artist Name" : this.props.artist}
-                    required
-                    value={this.state.artist}
-                    onChange={this.handleChangeArtist}
+                <AddForm 
+                handleSubmit={this.handleSubmit}
+                handleChangeName={this.handleChangeName}
+                handleChangeArtist={this.handleChangeArtist}
+                goBack={this.goBack}
                 />
-                <input
-                    className = "col s8 offset-s2"
-                    placeholder={(this.props.name === "") ? "Song Name" : this.props.name}
-                    required
-                    value={this.state.name}
-                    onChange={this.handleChangeName}
-                />
-                <input 
-                className="col s2 offset-s5 waves-light btn" 
-                type="submit" 
-                value="add song"
-                />
-                <input 
-                className="col s2 offset-s5 waves-light btn" 
-                type="button" 
-                value="Go Back" 
-                onClick= {this.props.toggleForm}
-                />
-                </form> 
             )
-        }
-    return(
-        <input 
-            className="waves-light btn" 
-            type="button" 
-            value="Add Song" 
-            onClick={this.props.toggleForm}
-        />
-    )}
-}
+        } else if (this.props.formVisibility && !this.props.listVisibility) {
+            return(
+                <UpdateForm 
+                name={this.props.name}
+                artist={this.props.artist}
+                handleSubmit={this.handleSubmit}
+                handleChangeName={this.handleChangeName}
+                handleChangeArtist={this.handleChangeArtist}
+                toggleForm={this.props.toggleForm}
+                cancelUpdate={this.props.cancelUpdate}
+                clearState={this.clearState}
+                />
+            )
+        } else {
+            return(
+                <input 
+                    className="waves-light btn" 
+                    type="button" 
+                    value="Add Song" 
+                    onClick={this.props.toggleForm}
+                />
+            )}
+}}
 
 export default SongForm;

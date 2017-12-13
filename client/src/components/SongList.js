@@ -13,6 +13,7 @@ class SongList extends React.Component {
                             {...song}
                             updateSong={this.props.updateSong}
                             deleteSong={this.props.deleteSong}
+                            initUpdate={this.props.initUpdate}
                         />
                     )}
                 </div>
