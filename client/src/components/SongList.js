@@ -19,14 +19,7 @@ class SongList extends React.Component {
                 </div>
             )
         }
-        return(
-            <input 
-            className="waves-light btn" 
-            type="button" 
-            value="Show List" 
-            onClick={this.props.toggleList}
-        />
-        )
+        return(null)
     }
 }    
         
