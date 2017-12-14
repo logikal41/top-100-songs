@@ -49,19 +49,24 @@ class App extends Component {
   }
   
   updateSong = (name, artist) => {
-    let newSong = { name, artist }
+    let song = { name, artist }
     fetch(`/api/songs/${this.state.id}`, { 
       method: 'PUT',
-      body: JSON.stringify(newSong)
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(song)
     }).then( res => res.json() )
       .then( song => {
         let songs = this.state.songs.map( t => {
           if( t.id === this.state.id)
-            return newSong
+            return song
           return t;
         });
         this.setState({ songs });
         this.setState({id:'', name:'', artist: ''})
+        this.toggleList()
       })
   }
 
