@@ -4,7 +4,7 @@ import SongForm from './components/SongForm';
 import SongList from './components/SongList';
 
 class App extends Component {
-  state = { songs: [], formVisibility: false, listVisibility: true, name: '', artist: '' }
+  state = { songs: [], formVisibility: false, listVisibility: true, name: '', artist: '', id: '' }
 
   componentDidMount() {
     fetch('/api/songs')
@@ -37,30 +37,31 @@ class App extends Component {
   }
 
   initUpdate = (id, name, artist) => {
-    this.setState({name, artist})
+    this.setState({id, name, artist})
     this.toggleList()
     this.toggleForm()
   }
 
   cancelUpdate = () => {
-    this.setState({name:'', artist: ''})
+    this.setState({id:'', name:'', artist: ''})
     this.toggleList()
     this.toggleForm()
   }
   
-  updateSong = (id, name, artist) => {
-    let song = { name, artist }
-    fetch(`/api/songs/${id}`, { 
+  updateSong = (name, artist) => {
+    let newSong = { name, artist }
+    fetch(`/api/songs/${this.state.id}`, { 
       method: 'PUT',
-      body: JSON.stringify(song)
+      body: JSON.stringify(newSong)
     }).then( res => res.json() )
       .then( song => {
         let songs = this.state.songs.map( t => {
-          if( t.id === id)
-            return song
+          if( t.id === this.state.id)
+            return newSong
           return t;
         });
         this.setState({ songs });
+        this.setState({id:'', name:'', artist: ''})
       })
   }
 
@@ -85,6 +86,7 @@ class App extends Component {
           artist={this.state.artist}
           name={this.state.name}
           cancelUpdate={this.cancelUpdate}
+          updateSong={this.updateSong}
            />
         </div>
         <div className="row">

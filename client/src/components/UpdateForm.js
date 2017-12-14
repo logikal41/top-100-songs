@@ -1,9 +1,8 @@
 import React from 'react';
 
-const UpdateForm = ({id, name, artist, handleSubmit, handleChangeArtist, handleChangeName, initUpdate, cancelUpdate, clearState}) => (
+const UpdateForm = ({id, name, artist, handleUpdate, handleChangeArtist, handleChangeName, cancelUpdate, clearState}) => (
    
-    <form className="row" onSubmit={initUpdate}>
-     <h2> This is an UPDATE </h2>
+    <form className="row" onSubmit={handleUpdate}>
         <input 
             className = "col s8 offset-s2"
             required

@@ -29,6 +29,13 @@ class SongForm extends React.Component {
         this.props.toggleForm()
     }
 
+    handleUpdate = e => {
+        e.preventDefault();
+        this.props.updateSong(this.state.name, this.state.artist)
+        this.setState({ name: '', artist: '' })
+        this.props.toggleForm()
+    }
+
     render() {
         if (this.props.formVisibility && this.props.listVisibility) {
             return(
@@ -44,7 +51,7 @@ class SongForm extends React.Component {
                 <UpdateForm 
                 name={this.props.name}
                 artist={this.props.artist}
-                handleSubmit={this.handleSubmit}
+                handleUpdate={this.handleUpdate}
                 handleChangeName={this.handleChangeName}
                 handleChangeArtist={this.handleChangeArtist}
                 toggleForm={this.props.toggleForm}
